@@ -1,0 +1,7 @@
+How to push in github:
+
+Step:
+1. git clone "repo url"
+2. git add .
+3. git commit -m "Message Here"
+4. git push
