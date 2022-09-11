@@ -8,22 +8,14 @@
         <div class="row w-100 mx-0">
           <div class="col-lg-4 mx-auto">
 
-            <?php
-                if(Session::get('msg')){ ?>
-
-                  <div class="alert alert-success" role="alert">
-                    <strong>Holy guacamole!</strong>{{Session::get('msg')}}
-                  </div>
-
-                  <?Php
-                }
-                else{ ?>
-
-                <div class="mt-4"></div>
-
-                <?php
-                }
-            ?>
+            @if (session('msg'))
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Holy guacamole!</strong> {{session('msg')}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @endif
 
             <div class="auth-form-light text-left py-2 px-4 px-sm-5">
               <h4>Hello! let's get started</h4>

@@ -1,5 +1,5 @@
 @extends('layouts.public')
-@section('title', 'laraBlog - Login')
+@section('title', 'laraBlog - Registration')
 @section('content')
 
 <div class="container-scroller" style="background-color: #F3F3F3;">

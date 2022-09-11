@@ -15,13 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 //Admin Routes
-Route::prefix('admin')->group(function (){
+Route::prefix('admin')->middleware('isAdmin')->group(function (){
     Route::get('/dashboard', [adminController::class,'dashboard'])->name('admin.dashboard');
+    Route::get('/add-category', [adminController::class,'addCategory'])->name('admin.add-category');
+    Route::post('/add-category', [adminController::class,'addCategorySubmit'])->name('admin.add-category');
+    Route::get('/view-category', [adminController::class,'viewCategory'])->name('admin.view-category');
+    Route::get('/edit-category/{category_id}', [adminController::class,'editCategory'])->name('admin.edit-category');
+    Route::post('/edit-category/{category_id}', [adminController::class,'editCategorySubmit'])->name('admin.edit-category');
 });
 
 //Vendor Routes
@@ -40,4 +41,5 @@ Route::prefix('public')->group(function (){
     Route::post('/registration', [publicController::class,'registrationSubmit'])->name('public.registration');
     Route::get('/login', [publicController::class,'login'])->name('public.login');
     Route::post('/login', [publicController::class,'loginSubmit'])->name('public.login');
+    Route::get('/logout', [publicController::class,'logout'])->name('public.logout');
 });

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+    <title>@yield('title')</title>
+
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{asset('assets/admin/vendors/mdi/css/materialdesignicons.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/admin/vendors/base/vendor.bundle.base.css')}}">
@@ -17,9 +19,16 @@
     <!-- endinject -->
     <link rel="shortcut icon" href="{{asset('assets/admin/images/favicon.png')}}" />
 
+    <style>
+        .table-img{
+            width: 50px !important;
+            height: 50px !important;
+            border-radius: 0% !important;
+        }
+    </style>
+
 </head>
 <body>
-
 
     <div class="container-scroller">
         @include('layouts.inc.admin-navbar')

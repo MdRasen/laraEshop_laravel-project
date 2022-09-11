@@ -31,8 +31,8 @@ class publicController extends Controller
         $user->email =$req->email;
         $user->password = $req->password;
         $user->save();
-        session()->flash('msg','Registration has been completed!');
-        return redirect()->route("public.login");
+
+        return redirect('public/login')->with('msg', 'Registration has been completed!');
     }
 
     public function login(){
@@ -59,7 +59,7 @@ class publicController extends Controller
             session()->put('username', $user->username);
 
             if($req->user_type == "Admin"){
-                return "Admin";
+                return redirect()->route('admin.dashboard');
             }
 
             elseif($req->user_type == "Customer"){
@@ -77,6 +77,12 @@ class publicController extends Controller
             session()->flash('msg','Invalid username/password!');
             return back();
         }
+    }
+
+    public function logout(){
+        session()->flush();
+        session()->flash('msg','User has been successfully logged out!');
+        return redirect()->route("public.login");
     }
         
 }
