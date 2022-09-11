@@ -2,7 +2,7 @@
 @section('title', 'laraBlog - Login')
 @section('content')
 
-<div class="container-scroller">
+<div class="container-scroller" style="background-color: #F3F3F3;">
     <div class="container-fluid page-body-wrapper full-page-wrapper">
       <div class="content-wrapper d-flex align-items-center auth px-0">
         <div class="row w-100 mx-0">
@@ -13,11 +13,11 @@
               <form class="pt-3" action="{{route('public.registration')}}" method="POST">
                 @csrf
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-lg" id="username" name="username" placeholder="Username">
+                  <input type="text" class="form-control form-control-lg" id="username" name="username" placeholder="Username" value="{{old('username')}}">
                   <p class="text-right" style="color:red;">@error('username')*{{$message}}@enderror</p>
                 </div>
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="Email">
+                  <input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="Email" value="{{old('email')}}">
                   <p class="text-right" style="color:red;">@error('email')*{{$message}}@enderror</p>
                 </div>
                 <div class="form-group">

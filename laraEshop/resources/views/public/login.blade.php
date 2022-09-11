@@ -1,13 +1,31 @@
 @extends('layouts.public')
-@section('title', 'laraBlog - Login')
+@section('title', 'laraEshop - Login')
 @section('content')
 
-<div class="container-scroller">
+<div class="container-scroller p-3" style="background-color: #F3F3F3;">
     <div class="container-fluid page-body-wrapper full-page-wrapper">
       <div class="content-wrapper d-flex align-items-center auth px-0">
         <div class="row w-100 mx-0">
           <div class="col-lg-4 mx-auto">
-            <div class="auth-form-light text-left py-4 px-4 px-sm-5">
+
+            <?php
+                if(Session::get('msg')){ ?>
+
+                  <div class="alert alert-success" role="alert">
+                    <strong>Holy guacamole!</strong>{{Session::get('msg')}}
+                  </div>
+
+                  <?Php
+                }
+                else{ ?>
+
+                <div class="mt-4"></div>
+
+                <?php
+                }
+            ?>
+
+            <div class="auth-form-light text-left py-2 px-4 px-sm-5">
               <h4>Hello! let's get started</h4>
               <h6 class="font-weight-light">Sign in to continue.</h6>
               <form class="pt-3" action="{{route('public.login')}}" method="POST">
@@ -30,7 +48,6 @@
                   <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="Password">
                   <p class="text-right" style="color:red;">@error('password')*{{$message}}@enderror</p>
                 </div>
-                <p class="text-right" style="color: red;">{{Session::get('msg')}}</p>
                 <div class="mt-3">
                   {{-- <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" href="#">SIGN IN</a> --}}
                   <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN IN</button>

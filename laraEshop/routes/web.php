@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\adminController;
 use App\Http\Controllers\publicController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +21,7 @@ Route::get('/', function () {
 
 //Admin Routes
 Route::prefix('admin')->group(function (){
-
+    Route::get('/dashboard', [adminController::class,'dashboard'])->name('admin.dashboard');
 });
 
 //Vendor Routes

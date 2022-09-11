@@ -22,6 +22,7 @@
         .user_type{
             width: 100% !important;
             margin-bottom: 10px !important;
+            font-size: 20px !important;
         }
     </style>
 
