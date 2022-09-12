@@ -23,6 +23,8 @@ Route::prefix('admin')->middleware('isAdmin')->group(function (){
     Route::get('/view-category', [adminController::class,'viewCategory'])->name('admin.view-category');
     Route::get('/edit-category/{category_id}', [adminController::class,'editCategory'])->name('admin.edit-category');
     Route::post('/edit-category/{category_id}', [adminController::class,'editCategorySubmit'])->name('admin.edit-category');
+    Route::post('/delete-category', [adminController::class,'deleteCategory'])->name('admin.delete-category');
+
 });
 
 //Vendor Routes

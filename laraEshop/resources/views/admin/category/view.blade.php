@@ -7,10 +7,10 @@
         <div class="card-body">
 
             @if (session('msg'))
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>Holy guacamole!</strong> {{session('msg')}}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             @endif
@@ -34,21 +34,55 @@
                     </thead>
                     <tbody>
                         @foreach ($categories as $item)
-                            <tr>
-                                <td>
-                                    <img class="table-img" src="{{asset('storage/category_images')}}/{{$item->thumbnail}}" alt="Category image">
-                                </td>
-                                <td>{{$item->name}}</td>
-                                <td>{{$item->slug}}</td>
-                                <td>{{$item->description}}</td>
-                                <td>{{$item->visibility}}</td>
-                                <td>
-                                    <a href="{{route('admin.edit-category', ['category_id'=>$item->id])}}" class="nav-link btn-inverse-primary">Edit</a>
-                                </td>
-                                <td>
-                                    <a href="#" class="nav-link btn-inverse-danger">Delete</a>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>
+                                <img class="table-img" src="{{asset('storage/category_images')}}/{{$item->thumbnail}}"
+                                    alt="Category image">
+                            </td>
+                            <td>{{$item->name}}</td>
+                            <td>{{$item->slug}}</td>
+                            <td>{{$item->description}}</td>
+                            <td>{{$item->visibility}}</td>
+                            <td>
+                                <a href="{{route('admin.edit-category', ['category_id'=>$item->id])}}"
+                                    class="nav-link btn-inverse-primary">Edit</a>
+                            </td>
+                            <td>
+                                <button type="button" value="{{$item->id}}"
+                                    class="nav-link btn-inverse-danger deleteCategoryBtn" data-toggle="modal"
+                                    data-target="#deleteCategoryBtn">Delete</button>
+
+                                <!-- Modal -->
+                                <div class="modal fade text-center" id="deleteCategoryBtn" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Delete Category</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <h5>Are you sure you want to delete?</h5>
+                                                <form action="{{route('admin.delete-category')}}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" id="category_id" name="category_id"
+                                                        class="form-control">
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Delete</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>
@@ -56,5 +90,18 @@
         </div>
     </div>
 </div>
+@endsection
 
+@section('scripts')
+<script>
+    $(document).ready(function () {
+        $('.deleteCategoryBtn').click(function (e) {
+            e.preventDefault();
+            var category_id = $(this).val();
+            $('#category_id').val(category_id);
+            $('#deleteModal').modal('show');
+        });
+    });
+
+</script>
 @endsection

@@ -98,6 +98,11 @@ class adminController extends Controller
         $category->visibility = $req->visibility == "" ? 'Disabled':'Active';
         $category->update();
 
-        // return redirect('admin/view-category')->with('msg', 'Category has been updated successfully!');
+        return redirect('admin/view-category')->with('msg', 'Category has been updated successfully!');
+    }
+
+    public function deleteCategory(Request $req){
+        $category = category::where('id', '=', $req->category_id)->delete();
+        return redirect('admin/view-category')->with('msg', 'Category has been deleted successfully!');
     }
 }
