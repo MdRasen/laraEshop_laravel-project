@@ -53,7 +53,7 @@
 
             <div class="col-4">
                 <div class="form-group p-3 mt-4">
-                    <label for="slug">Visibility:</label>
+                    <label for="visibility">Visibility:</label>
                     <input class="mt-1" type="checkbox" name="visibility" {{$category->visibility == "Active" ? 'checked': ''}}>
                 </div>
                 <p class="text-right" style="color:red;">@error('visibility')*{{$message}}@enderror</p>

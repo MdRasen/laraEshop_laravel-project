@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'laraEshop - View Category')
+@section('title', 'laraEshop - View Products')
 @section('content')
 
 <div class="col-lg-12 grid-margin stretch-card">
@@ -15,9 +15,9 @@
             </div>
             @endif
 
-            <h4 class="card-title">Categories</h4>
+            <h4 class="card-title">Products</h4>
             <p class="card-description">
-                Product categories for your store can be managed here.
+                Products for your store can be managed here.
             </p>
             <div class="table-responsive">
                 <table class="table table-hover">
@@ -25,40 +25,40 @@
                         <tr>
                             <th>Image</th>
                             <th>Name</th>
-                            <th>Slug</th>
-                            <th>Description</th>
+                            <th>Price (Tk)</th>
+                            <th>Stock</th>
                             <th>Visibility</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($categories as $item)
+                        @foreach ($products as $item)
                         <tr>
                             <td>
-                                <img class="table-img" src="{{asset('storage/category_images')}}/{{$item->thumbnail}}"
-                                    alt="Category image">
+                                <img class="table-img" src="{{asset('storage/product_images')}}/{{$item->thumbnail}}"
+                                    alt="product image">
                             </td>
                             <td>{{$item->name}}</td>
-                            <td>{{$item->slug}}</td>
-                            <td>{{$item->description}}</td>
+                            <td>{{$item->price}}</td>
+                            <td>{{$item->stock}}</td>
                             <td>{{$item->visibility}}</td>
                             <td>
-                                <a href="{{route('admin.edit-category', ['category_id'=>$item->id])}}"
-                                    class="nav-link btn btn-sm btn-inverse-primary">Edit</a>
+                                <a href="{{route('admin.edit-product', ['product_id'=>$item->id])}}"
+                                    class="nav-link btn btn-sm btn-inverse-primary text-center">Edit</a>
                             </td>
                             <td>
                                 <button type="button" value="{{$item->id}}"
-                                    class="nav-link btn btn-sm btn-inverse-danger deleteCategoryBtn" data-toggle="modal"
-                                    data-target="#deleteCategoryBtn">Delete</button>
+                                    class="nav-link btn btn-sm btn-inverse-danger deleteProductBtn" data-toggle="modal"
+                                    data-target="#deleteProductBtn">Delete</button>
 
                                 <!-- Modal -->
-                                <div class="modal fade text-center" id="deleteCategoryBtn" tabindex="-1" role="dialog"
+                                <div class="modal fade text-center" id="deleteProductBtn" tabindex="-1" role="dialog"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Delete Category</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">Delete Product</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
@@ -66,9 +66,9 @@
                                             </div>
                                             <div class="modal-body">
                                                 <h5>Are you sure you want to delete?</h5>
-                                                <form action="{{route('admin.delete-category')}}" method="POST">
+                                                <form action="{{route('admin.delete-product')}}" method="POST">
                                                     @csrf
-                                                    <input type="hidden" id="category_id" name="category_id"
+                                                    <input type="hidden" id="product_id" name="product_id"
                                                         class="form-control">
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
@@ -91,7 +91,7 @@
 </div>
 
 <div align="center">
-    {{$categories->links()}}
+    {{$products->links()}}
 </div>
 
 @endsection
@@ -99,10 +99,10 @@
 @section('scripts')
 <script>
     $(document).ready(function () {
-        $('.deleteCategoryBtn').click(function (e) {
+        $('.deleteProductBtn').click(function (e) {
             e.preventDefault();
-            var category_id = $(this).val();
-            $('#category_id').val(category_id);
+            var product_id = $(this).val();
+            $('#product_id').val(product_id);
             $('#deleteModal').modal('show');
         });
     });

@@ -25,6 +25,9 @@
             height: 50px !important;
             border-radius: 0% !important;
         }
+        .content-wrapper{
+            padding: 15px !important;
+        }
     </style>
 
 </head>

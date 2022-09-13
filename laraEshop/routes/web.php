@@ -24,7 +24,12 @@ Route::prefix('admin')->middleware('isAdmin')->group(function (){
     Route::get('/edit-category/{category_id}', [adminController::class,'editCategory'])->name('admin.edit-category');
     Route::post('/edit-category/{category_id}', [adminController::class,'editCategorySubmit'])->name('admin.edit-category');
     Route::post('/delete-category', [adminController::class,'deleteCategory'])->name('admin.delete-category');
-
+    Route::get('/add-product', [adminController::class,'addProduct'])->name('admin.add-product');
+    Route::post('/add-product', [adminController::class,'addProductSubmit'])->name('admin.add-product');
+    Route::get('/view-product', [adminController::class,'viewProduct'])->name('admin.view-product');
+    Route::get('/edit-product/{product_id}', [adminController::class,'editProduct'])->name('admin.edit-product');
+    Route::post('/edit-product/{product_id}', [adminController::class,'editProductSubmit'])->name('admin.edit-product');
+    Route::post('/delete-product', [adminController::class,'deleteProduct'])->name('admin.delete-product');
 });
 
 //Vendor Routes
