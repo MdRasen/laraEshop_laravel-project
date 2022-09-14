@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'laraEshop - Add Products')
+@section('title', 'laraEshop - Edit Products')
 @section('content')
 
 <div class="col-12 grid-margin stretch-card">
@@ -17,14 +17,14 @@
                     <p style="color:red;">@error('name')*{{$message}}@enderror</p>
                 </div>
                 <div class="row form-group">
-                    <div class="col-6">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <label>Slug</label>
                             <input type="text" class="form-control" name="slug" value="{{$product->slug}}" placeholder="Slug">
                             <p style="color:red;">@error('slug')*{{$message}}@enderror</p>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <label>Category</label>
                             <select class="form-control" name="category_id">
@@ -42,12 +42,12 @@
                     <p style="color:red;">@error('description')*{{$message}}@enderror</p>
                 </div>
                 <div class="row form-group">
-                    <div class="col-6">
+                    <div class="col-sm-6">
                         <label>Price</label>
                         <input type="number" class="form-control" name="price" value="{{$product->price}}" placeholder="Price">
                         <p style="color:red;">@error('price')*{{$message}}@enderror</p>
                     </div>
-                    <div class="col-6">
+                    <div class="col-sm-6">
                         <label>Stock</label>
                         <input type="number" class="form-control" name="stock" value="{{$product->stock}}" placeholder="Stock">
                         <p style="color:red;">@error('stock')*{{$message}}@enderror</p>
@@ -55,19 +55,19 @@
                 </div>
                 <h6 class="pt-2">SEO Details:</h6>
                 <div class="row form-group">
-                    <div class="col-6">
+                    <div class="col-sm-6">
                         <label>Meta Description</label>
                         <textarea class="form-control" name="meta_description" rows="2">{{$product->meta_description}}</textarea>
                         <p style="color:red;">@error('meta_description')*{{$message}}@enderror</p>
                     </div>
-                    <div class="col-6">
+                    <div class="col-sm-6">
                         <label>Meta Keywords</label>
                         <textarea class="form-control" name="meta_keywords" rows="2">{{$product->meta_keywords}}</textarea>
                         <p style="color:red;">@error('meta_keywords')*{{$message}}@enderror</p>
                     </div>
                 </div>
                 <div class="row form-group">
-                    <div class="col-8">
+                    <div class="col-sm-8">
                         <label>Thumbnail</label>
                         <input type="file" class="form-control" name="thumbnail">
                         <p style="color:red;">@error('thumbnail')*{{$message}}@enderror</p>
@@ -81,7 +81,7 @@
                     }
                     ?>
 
-                    <div class="col-4 p-3 mt-4">
+                    <div class="col-sm-4 p-3 mt-4">
                         <label>Visibility: </label>
                         <input class="mt-1" type="checkbox" name="visibility" {{$product->visibility == "Active" ? 'checked': ''}}>
                     </div>

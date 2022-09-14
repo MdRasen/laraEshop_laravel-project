@@ -28,6 +28,37 @@
         .content-wrapper{
             padding: 15px !important;
         }
+
+        .height{
+        height: 20vh;
+       }
+       
+       .search{
+       position: relative;
+       }
+
+       .search input{
+        height: 40px;
+        text-indent: 25px;
+       }
+
+       .search .mdi-magnify{
+        position: absolute;
+        top: 5px;
+        left: 16px;
+       }
+
+       .search button{
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        height: 40px;
+        background: #4D83FF;
+       }
+
+       .form-group{
+        margin-bottom: 0.8rem !important;
+       }
     </style>
 
 </head>

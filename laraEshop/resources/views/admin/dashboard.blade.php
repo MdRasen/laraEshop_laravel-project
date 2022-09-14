@@ -2,6 +2,15 @@
 @section('title', 'laraEshop - Dashboard')
 @section('content')
 
+@if ($user->name == null || $user->phone == null || $user->address == null)
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Important!</strong> Your profile is incomplete, Please update...
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
+
 <div class="row">
     <div class="col-md-12 grid-margin">
         <div class="d-flex justify-content-between flex-wrap">

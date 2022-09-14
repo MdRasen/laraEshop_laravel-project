@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\admin;
 use App\Models\category;
 use App\Models\product;
 use Illuminate\Http\Request;
@@ -12,7 +13,11 @@ use Illuminate\Support\Facades\Redis;
 class adminController extends Controller
 {
     public function dashboard(){
-        return view('admin.dashboard');
+        //Getting value form session
+        $user_id = session()->get('id');
+
+        $user = admin::where('id', '=', $user_id)->first();
+        return view('admin.dashboard', compact('user'));
     }
 
     public function addCategory(){
@@ -232,5 +237,74 @@ class adminController extends Controller
         }
         $product->delete();
         return redirect('admin/view-product')->with('msg', 'Product has been deleted successfully!');
+    }
+
+    public function viewProfile(){
+        //Getting value form session
+        $user_id = session()->get('id');
+
+        $user = admin::where('id', '=', $user_id)->first();
+        return view('admin.profile.view', compact('user'));
+    }
+
+    public function updateProfilePic(Request $req){
+        $this->validate($req,
+            [
+                "profile_pic"=>"required|mimes:jpg,png,jpeg,webp",
+            ],
+        );
+        $user_id = session()->get('id');
+        $user = admin::where('id', '=', $user_id)->first();
+
+        if($user->profile_pic){
+            $destination = 'storage/admin_images/'.$user->profile_pic;
+                if(file_exists(public_path($destination))) {
+                    unlink($destination); 
+                }
+        }
+
+        $extension = $req->file('profile_pic')->getClientOriginalExtension();
+        $imagename = time().".".$extension;
+        $req->file('profile_pic')->storeAs('public/admin_images/', $imagename);
+        $user->profile_pic = $imagename;
+        $user->update();
+
+        return redirect('admin/view-profile')->with('msg', 'Profile Photo has been updated successfully!');
+    }
+
+    public function editProfile(){
+        $user_id = session()->get('id');
+
+        $user = admin::where('id', '=', $user_id)->first();
+        return view('admin.profile.edit', compact('user'));
+    }
+
+    public function editProfileSubmit(Request $req){
+        $user_id = session()->get('id');
+        $this->validate($req,
+            [
+                "name"=>"required|regex:/^[A-Z a-z,.-]+$/i",
+                "email"=>"required|email|unique:admins,email,$user_id",
+                "phone"=>"required|numeric|digits:10",
+                "gender"=>"required",
+                "dob"=>"required|before:-10 years",
+                "address"=>"required"
+            ],
+            [
+                'name.regex' => 'Name cannot contain special characters or numbers.',
+                'dob.before' => 'User must be 18 years or older.',
+            ]
+        );
+
+        $user=admin::where('id','=',$user_id)->first();
+        $user->name = $req->name;
+        $user->email =$req->email;
+        $user->phone = $req->phone;
+        $user->gender = $req->gender;
+        $user->dob = $req->dob;
+        $user->address = $req->address;
+        $user->update();
+        
+        return redirect('admin/view-profile')->with('msg', 'Profile has been updated successfully!');
     }
 }

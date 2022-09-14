@@ -12,14 +12,14 @@
         <form class="forms-sample" action="{{route('admin.edit-category', ['category_id'=>$category->id])}}" method="POST" enctype="multipart/form-data">
             @csrf
           <div class="row">
-            <div class="col-6">
+            <div class="col-sm-6">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" class="form-control" name="name" placeholder="Name" value="{{$category->name}}">
                     <p class="text-right" style="color:red;">@error('name')*{{$message}}@enderror</p>
                   </div>  
             </div>
-            <div class="col-6">
+            <div class="col-sm-6">
                 <div class="form-group">
                     <label for="slug">Slug</label>
                     <input type="text" class="form-control" name="slug" placeholder="Slug" value="{{$category->slug}}">
@@ -33,7 +33,7 @@
             <p class="text-right" style="color:red;">@error('description')*{{$message}}@enderror</p>
           </div>
           <div class="row">
-            <div class="col-8">
+            <div class="col-sm-8">
                 <div class="form-group">
                     <label>Thumbnail Upload</label>
                     <div class="input-group col-xs-12">
