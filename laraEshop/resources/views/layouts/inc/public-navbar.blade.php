@@ -9,7 +9,7 @@
     <div class="humberger__menu__logo">
         {{-- <a href="#"><img src="img/logo.png" alt=""></a> --}}
         {{-- using text title --}}
-        <a class="navbar-brand text-dark" href="#">
+        <a class="navbar-brand text-dark" href="{{route('index')}}">
             <b>lara<span style="color: green;">Eshop.</span></b>
         </a>
     </div>
@@ -21,21 +21,13 @@
         <div class="header__cart__price">item: <span>$0.00</span></div>
     </div>
     <div class="humberger__menu__widget">
-        <div class="header__top__right__language">
-            <img src="img/language.png" alt="">
-            <div>English</div>
-            <span class="arrow_carrot-down"></span>
-            <ul>
-                <li><a href="#">English</a></li>
-            </ul>
-        </div>
         <div class="header__top__right__auth">
             <a href={{route('public.login')}}"><i class="fa fa-user"></i> Login</a>
         </div>
     </div>
     <nav class="humberger__menu__nav mobile-menu">
         <ul>
-            <li class="active"><a href="./index.html">Home</a></li>
+            <li class="active"><a href="{{route('index')}}">Home</a></li>
             <li><a href="#">Shop</a></li>
             <li><a href="#">Pages</a>
                 <ul class="header__menu__dropdown">
@@ -86,16 +78,13 @@
                             <a href="#"><i class="fa fa-linkedin"></i></a>
                             <a href="#"><i class="fa fa-pinterest-p"></i></a>
                         </div>
-                        <div class="header__top__right__language">
-                            <img src="img/language.png" alt="">
-                            <div>English</div>
-                            <span class="arrow_carrot-down"></span>
-                            <ul>
-                                <li><a href="#">English</a></li>
-                            </ul>
-                        </div>
+
                         <div class="header__top__right__auth">
-                            <a href="{{route('public.login')}}"><i class="fa fa-user"></i> Login</a>
+                            @if (session()->has('username'))
+                                <a href="#"><i class="fa fa-user"></i>Welcome, <b>{{session()->get('username')}} </b></a>
+                            @else
+                                <a href="{{route('public.login')}}"><i class="fa fa-user"></i> Login</a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -107,7 +96,7 @@
             <div class="col-lg-3">
                 <div class="header__logo">
                     {{-- <a href="#"><img src="img/logo.png" alt=""></a> --}}
-                    <a class="navbar-brand text-dark" href="#">
+                    <a class="navbar-brand text-dark" href="{{route('index')}}">
                         <b>lara<span style="color: green;">Eshop.</span></b>
                     </a>
                 </div>
@@ -115,7 +104,7 @@
             <div class="col-lg-6">
                 <nav class="header__menu">
                     <ul>
-                        <li><a href="./index.html">Home</a></li>
+                        <li><a href="{{route('index')}}">Home</a></li>
                         <li><a href="./shop-grid.html">Shop</a></li>
                         <li><a href="#">Pages</a>
                             <ul class="header__menu__dropdown">
@@ -155,20 +144,17 @@
                 <div class="hero__categories">
                     <div class="hero__categories__all">
                         <i class="fa fa-bars"></i>
-                        <span>All departments</span>
+                        <span>All Categories</span>
                     </div>
                     <ul>
-                        <li><a href="#">Fresh Meat</a></li>
-                        <li><a href="#">Vegetables</a></li>
-                        <li><a href="#">Fruit & Nut Gifts</a></li>
-                        <li><a href="#">Fresh Berries</a></li>
-                        <li><a href="#">Ocean Foods</a></li>
-                        <li><a href="#">Butter & Eggs</a></li>
-                        <li><a href="#">Fastfood</a></li>
-                        <li><a href="#">Fresh Onion</a></li>
-                        <li><a href="#">Papayaya & Crisps</a></li>
-                        <li><a href="#">Oatmeal</a></li>
-                        <li><a href="#">Fresh Bananas</a></li>
+                        @php
+                        $categories = App\models\category::where('visibility', '=', "Active")->get();
+                        @endphp
+      
+                        @foreach ($categories as $item)
+                        <li><a href="#">{{$item->name}}</a></li>			  
+                        @endforeach
+
                     </ul>
                 </div>
             </div>
@@ -189,7 +175,7 @@
                             <i class="fa fa-phone"></i>
                         </div>
                         <div class="hero__search__phone__text">
-                            <h5>+65 11.188.888</h5>
+                            <h5>+880 163 0966 696</h5>
                             <span>support 24/7 time</span>
                         </div>
                     </div>

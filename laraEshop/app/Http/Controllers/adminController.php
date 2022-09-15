@@ -30,7 +30,7 @@ class adminController extends Controller
                 'name'=>"required|string",
                 "slug"=>"nullable|string",
                 "description"=>"nullable|string|max:200",
-                "thumbnail"=>"mimes:jpg,png,jpeg,webp",
+                "thumbnail"=>"required|mimes:jpg,png,jpeg,webp",
             ],
         );
 
@@ -164,11 +164,11 @@ class adminController extends Controller
         $product->visibility = $req->visibility == "" ? 'Disabled':'Active';
         $product->save();
 
-        return redirect('admin/view-products')->with('msg', 'Product has been added successfully!');
+        return redirect('admin/view-product')->with('msg', 'Product has been added successfully!');
     }
 
     public function viewProduct(){
-        $products = DB::table('products')->simplePaginate(4);
+        $products = product::where('id', '>', "0")->simplePaginate(4);
         return view("admin.product.view", compact('products'));
     }
 
@@ -269,6 +269,7 @@ class adminController extends Controller
         $user->profile_pic = $imagename;
         $user->update();
 
+        session()->put('profile_pic', $imagename);
         return redirect('admin/view-profile')->with('msg', 'Profile Photo has been updated successfully!');
     }
 

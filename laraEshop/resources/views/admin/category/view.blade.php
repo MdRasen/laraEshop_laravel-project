@@ -19,6 +19,7 @@
             <p class="card-description">
                 Product categories for your store can be managed here.
             </p>
+            <a href="{{route('admin.add-category')}}" class="btn btn-light btn-block">Add New Category</a>
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
@@ -106,5 +107,6 @@
             $('#deleteModal').modal('show');
         });
     });
+
 </script>
 @endsection

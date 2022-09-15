@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
-            $table->string('category_id');
+            $table->integer('category_id');
             $table->tinyText('description')->nullable();
             $table->integer('price');
             $table->integer('stock');

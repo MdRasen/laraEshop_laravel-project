@@ -5,9 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\admin;
 use Illuminate\Http\Request;
 use App\Models\customer;
+use App\Models\category;
+use App\Models\product;
 
 class publicController extends Controller
 {
+    public function index(){
+        $categories = category::where('visibility', '=', "Active")->get();
+        $products = product::where('visibility', '=', "Active")->get();
+        $latest_products = product::where('visibility', '=', "Active")->orderBy('created_at' , 'DESC')->get()->take(4);
+        $toprated_products = product::where('visibility', '=', "Active")->orderBy('created_at' , 'ASC')->get()->take(4);
+        return view('index', compact('categories', 'products', 'latest_products', 'toprated_products'));
+    }
+
     public function registration(){
         return view('public.registration');
     }
@@ -57,6 +67,7 @@ class publicController extends Controller
             session()->put('id',$user->id);
             session()->put('user_type',$req->user_type);
             session()->put('username', $user->username);
+            session()->put('profile_pic', $user->profile_pic);
 
             if($req->user_type == "Admin"){
                 return redirect()->route('admin.dashboard');

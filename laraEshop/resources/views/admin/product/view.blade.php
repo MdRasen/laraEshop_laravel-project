@@ -19,12 +19,14 @@
             <p class="card-description">
                 Products for your store can be managed here.
             </p>
+            <a href="{{route('admin.add-product')}}" class="btn btn-light btn-block">Add New Product</a>
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
                         <tr>
                             <th>Image</th>
                             <th>Name</th>
+                            <th>Category</th>
                             <th>Price (Tk)</th>
                             <th>Stock</th>
                             <th>Visibility</th>
@@ -40,6 +42,7 @@
                                     alt="product image">
                             </td>
                             <td>{{$item->name}}</td>
+                            <td>{{$item->category->name}}</td>
                             <td>{{$item->price}}</td>
                             <td>{{$item->stock}}</td>
                             <td>{{$item->visibility}}</td>

@@ -31,7 +31,6 @@
                                 @foreach ($categories as $item)
                                     <option value="{{$item->id}}">{{$item->name}}</option> 
                                 @endforeach
-                                <option value="999" selected>Others</option> 
                             </select>
                         </div>
                     </div>

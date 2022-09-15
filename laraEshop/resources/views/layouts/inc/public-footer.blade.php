@@ -12,7 +12,7 @@
                         </div>
                         <ul>
                             <li>Address: 91, Wireless, Moghbazar, Dhaka: 1217</li>
-                            <li>Phone: +65 11.188.889</li>
+                            <li>Phone: +880 163 0966 696</li>
                             <li>Email: hello@laraeshop.com</li>
                         </ul>
                     </div>
@@ -29,12 +29,13 @@
                             <li><a href="#">Our Sitemap</a></li>
                         </ul>
                         <ul>
-                            <li><a href="#">Who We Are</a></li>
-                            <li><a href="#">Our Services</a></li>
-                            <li><a href="#">Projects</a></li>
-                            <li><a href="#">Contact</a></li>
-                            <li><a href="#">Innovation</a></li>
-                            <li><a href="#">Testimonials</a></li>
+                            @php
+                            $categories = App\models\category::where('visibility', '=', "Active")->get()->take(6);
+                            @endphp
+
+                            @foreach ($categories as $item)
+                            <li><a href="#">{{$item->name}}</a></li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -58,10 +59,18 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="footer__copyright">
-                        <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
-                        <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
+                        <div class="footer__copyright__text">
+                            <p>
+                                Copyright &copy;<script>
+                                    document.write(new Date().getFullYear());
+
+                                </script> All rights reserved | This template is made with <i class="fa fa-heart"
+                                    aria-hidden="true"></i> by <a href="#" target="_blank">MdRasen
+
+                                </a></p>
+                        </div>
+                        <div class="footer__copyright__payment"><img
+                                src="{{asset('assets/public/img/payment-item.png')}}" alt=""></div>
                     </div>
                 </div>
             </div>
