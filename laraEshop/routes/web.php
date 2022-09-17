@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\adminController;
+use App\Http\Controllers\customerController;
 use App\Http\Controllers\publicController;
 use Illuminate\Support\Facades\Route;
 
@@ -50,8 +51,10 @@ Route::prefix('vendor')->group(function (){
 });
 
 //Customer Routes
-Route::prefix('customer')->group(function (){
-    
+Route::prefix('customer')->middleware('isCustomer')->group(function (){
+    Route::get('/dashboard', [customerController::class,'dashboard'])->name('customer.dashboard');
+    Route::get('/view-cart', [customerController::class,'viewCart'])->name('customer.view-cart');
+    Route::get('/add-cart/{product_id}', [customerController::class,'addCart'])->name('customer.add-cart');
 });
 
 //Public Routes

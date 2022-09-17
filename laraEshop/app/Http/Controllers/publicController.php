@@ -74,7 +74,7 @@ class publicController extends Controller
             }
 
             elseif($req->user_type == "Customer"){
-                return "Customer";
+                return redirect()->route('customer.dashboard');
             }
 
             elseif($req->user_type == "Vendor"){

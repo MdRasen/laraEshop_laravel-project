@@ -80,11 +80,26 @@
                         </div>
 
                         <div class="header__top__right__auth">
-                            @if (session()->has('username'))
+                            @if(session()->get('user_type') == "Admin")
+                                <a href="{{route('admin.dashboard')}}"><i class="fa fa-user"></i>Welcome, <b>{{session()->get('username')}} </b></a>
+                            @elseif(session()->get('user_type') == "Vendor")
                                 <a href="#"><i class="fa fa-user"></i>Welcome, <b>{{session()->get('username')}} </b></a>
+                            @elseif(session()->get('user_type') == "Customer")
+                            <a href="{{route('customer.dashboard')}}"><i class="fa fa-user"></i>Welcome, <b>{{session()->get('username')}} </b></a>
                             @else
                                 <a href="{{route('public.login')}}"><i class="fa fa-user"></i> Login</a>
                             @endif
+
+                            {{-- @if(Auth::user() == true && Auth::user()->role_as == "1")
+                            <a href="{{route('admin.dashboard')}}" style="font-size: 18px"> Welcome! <span>{{Auth::user()->role_as == 1 ? 'Admin,' : 'User,'}}</span> <span>{{ Auth::user()->name }}</a>
+                        
+                            @elseif(Auth::user() == true && Auth::user()->role_as == "0")
+                                <a href="userdashboard" style="font-size: 18px"> Welcome! <span>{{Auth::user()->role_as == 0 ? 'User,' : 'Admin,'}}</span> <span>{{ Auth::user()->name }}</a>
+
+                            @elseif(Auth::user() == false)
+                                <a href="{{ route('login') }}"><span>Login</span></a>
+                                
+                            @endif --}}
                         </div>
                     </div>
                 </div>
