@@ -11,7 +11,7 @@
                 <div class="col-lg-3">
                     <div class="categories__item set-bg"
                         data-setbg="{{asset('storage/category_images')}}/{{$item->thumbnail}}">
-                        <h5><a href="#">{{$item->name}}</a></h5>
+                        <h5><a href="{{route('public.category-products', ['category_slug'=>$item->slug])}}">{{$item->name}}</a></h5>
                     </div>
                 </div>
                 @endforeach
@@ -52,7 +52,7 @@
                         </ul>
                     </div>
                     <div class="featured__item__text">
-                        <h6><a href="#">{{$item->name}}</a></h6>
+                        <h6><a href="{{route('public.view-product', ['category_slug'=>$item->category->slug, 'product_slug'=>$item->slug])}}">{{$item->name}}</a></h6>
                         <h5>৳ {{$item->price}}</h5>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
                     <div>
                         <div>
                             @foreach ($latest_products as $item)
-                            <a href="#" class="latest-product__item">
+                            <a href="{{route('public.view-product', ['category_slug'=>$item->category->slug, 'product_slug'=>$item->slug])}}" class="latest-product__item">
                                 <div class="latest-product__item__pic">
                                     <img src="{{asset('storage/product_images')}}/{{$item->thumbnail}}" alt="">
                                 </div>
@@ -112,7 +112,7 @@
                     <div>
                         <div>
                             @foreach ($toprated_products as $item)
-                            <a href="#" class="latest-product__item">
+                            <a href="{{route('public.view-product', ['category_slug'=>$item->category->slug, 'product_slug'=>$item->slug])}}" class="latest-product__item">
                                 <div class="latest-product__item__pic">
                                     <img src="{{asset('storage/product_images')}}/{{$item->thumbnail}}" alt="">
                                 </div>
@@ -132,13 +132,13 @@
                     <div>
                         <div>
                             @foreach ($latest_products as $item)
-                            <a href="#" class="latest-product__item">
+                            <a href="{{route('public.view-product', ['category_slug'=>$item->category->slug, 'product_slug'=>$item->slug])}}" class="latest-product__item">
                                 <div class="latest-product__item__pic">
                                     <img src="{{asset('storage/product_images')}}/{{$item->thumbnail}}" alt="">
                                 </div>
                                 <div class="latest-product__item__text">
                                     <h6>{{$item->name}}</h6>
-                                    <span>$30.00</span>
+                                    <span>৳ {{$item->price}}</span>
                                 </div>
                             </a>
                             @endforeach

@@ -61,4 +61,6 @@ Route::prefix('public')->group(function (){
     Route::get('/login', [publicController::class,'login'])->name('public.login');
     Route::post('/login', [publicController::class,'loginSubmit'])->name('public.login');
     Route::get('/logout', [publicController::class,'logout'])->name('public.logout');
+    Route::get('/category/{category_slug}', [publicController::class,'categoryProducts'])->name('public.category-products');
+    Route::get('/{category_slug}/{product_slug}', [publicController::class,'viewProduct'])->name('public.view-product');
 });

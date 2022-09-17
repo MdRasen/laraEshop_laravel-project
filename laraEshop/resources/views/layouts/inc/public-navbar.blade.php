@@ -152,7 +152,7 @@
                         @endphp
       
                         @foreach ($categories as $item)
-                        <li><a href="#">{{$item->name}}</a></li>			  
+                        <li><a href="{{route('public.category-products', ['category_slug'=>$item->slug])}}">{{$item->name}}</a></li>			  
                         @endforeach
 
                     </ul>

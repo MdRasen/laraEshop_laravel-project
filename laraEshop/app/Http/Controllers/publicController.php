@@ -95,5 +95,37 @@ class publicController extends Controller
         session()->flash('msg','User has been successfully logged out!');
         return redirect()->route("public.login");
     }
+
+    public function categoryProducts($category_slug){
+        $categories = category::where('visibility', '=', "Active")->get();
+
+        $category = category::where('slug', '=', $category_slug)->first();
+        if($category){
+            $products = product::where('category_id', '=', $category->id)->get();
+            $latest_products = product::where('visibility', '=', "Active")->orderBy('created_at' , 'DESC')->get()->take(4);
+            $toprated_products = product::where('visibility', '=', "Active")->orderBy('created_at' , 'ASC')->get()->take(4);
+            return view('public.category-products', compact('products', 'category', 'categories', 'latest_products', 'toprated_products'));
+        }
+        else{
+            return redirect('/');
+        }
+    }
+
+    public function viewProduct($category_slug, $product_slug){
+        $category = category::where('slug', '=', $category_slug)->first();
+        if($category){
+            $product = product::where('category_id', '=', $category->id)
+            ->where('slug', '=', $product_slug)->where('visibility', '=', 'Active')
+            ->first();
+
+            if($product){
+                $related_product = product::where('category_id', '=', $category->id)->where('slug', '!=', $product_slug)->where('visibility', '=', "Active")->get()->take(4);
+                return view('public.view-product', compact('product', 'category', 'related_product'));
+            }
+        }
+        else{
+            return redirect('/');
+        }
+    }
         
 }
