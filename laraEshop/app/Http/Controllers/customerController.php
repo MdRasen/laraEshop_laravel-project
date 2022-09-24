@@ -18,7 +18,22 @@ class customerController extends Controller
     }
 
     public function viewCart(){
-        return view('customer.cart');
+        $user_id = session()->get('id');
+        $cart = cart::where('id', '=', $user_id)->first();
+
+        if($cart){
+            $cartitems = cart_item::where('cart_id', '=', $cart->id)->get();
+
+            $total_price = 0;
+            foreach ($cartitems as $item) {
+                $total_price = ($total_price + ($item->quantity * $item->product->price));
+            }
+            return view('customer.cart', compact('cartitems', 'total_price'));
+        }
+
+        else{
+            return Redirect()->back()->with('msg', 'No product in your cart!');
+        }
     }
 
     public function addCart($product_id){
@@ -48,5 +63,33 @@ class customerController extends Controller
     
             return Redirect()->back()->with('msg', 'Product has been added to your cart!');
         }
+    }
+
+    public function cartIncrement($cartitem_id){
+        $cartitem = cart_item::where('id', '=', $cartitem_id)->first();
+        if($cartitem){
+            $cartitem->quantity = $cartitem->quantity + 1;
+            $cartitem->update();
+            return Redirect()->back()->with('msg', 'Cart product has been updated!');
+        }
+    }
+
+    public function cartDecrement($cartitem_id){
+        $cartitem = cart_item::where('id', '=', $cartitem_id)->first();
+        if($cartitem){
+            if($cartitem->quantity > 1){
+                $cartitem->quantity = $cartitem->quantity - 1;
+                $cartitem->update();
+                return Redirect()->back()->with('msg', 'Cart product has been updated!');
+            }
+            else{
+                return Redirect()->back()->with('alertmsg', 'Product quantity can not be less than 1!');
+            }
+        }
+    }
+
+    public function cartItemRemove(Request $req){
+        $cartitem = cart_item::where('id', '=', $req->cart_item_id)->delete();
+        return Redirect()->back()->with('msg', 'Cart product has been removed!');
     }
 }

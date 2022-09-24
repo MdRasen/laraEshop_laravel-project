@@ -55,6 +55,9 @@ Route::prefix('customer')->middleware('isCustomer')->group(function (){
     Route::get('/dashboard', [customerController::class,'dashboard'])->name('customer.dashboard');
     Route::get('/view-cart', [customerController::class,'viewCart'])->name('customer.view-cart');
     Route::get('/add-cart/{product_id}', [customerController::class,'addCart'])->name('customer.add-cart');
+    Route::get('/cart-increment/{cartitem_id}', [customerController::class,'cartIncrement'])->name('customer.cart-increment');
+    Route::get('/cart-decrement/{cartitem_id}', [customerController::class,'cartDecrement'])->name('customer.cart-decrement');
+    Route::post('/cart-remove-item', [customerController::class,'cartItemRemove'])->name('customer.cart-remove-item');
 });
 
 //Public Routes

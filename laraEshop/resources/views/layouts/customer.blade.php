@@ -30,7 +30,7 @@
         }
 
         .height{
-        height: 20vh;
+        height: 15vh;
        }
        
        .search{
