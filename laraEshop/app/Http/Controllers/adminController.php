@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\admin;
 use App\Models\category;
+use App\Models\coupon;
 use App\Models\product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -307,5 +308,36 @@ class adminController extends Controller
         $user->update();
         
         return redirect('admin/view-profile')->with('msg', 'Profile has been updated successfully!');
+    }
+
+    public function addCoupon(){
+        return view('admin.coupon.add');
+    }
+
+    public function addCouponSubmit(Request $req){
+        $this->validate($req,
+            [
+                'coupon_code'=>"required|string|max:5|unique:coupons",
+                "discount_amount"=>"required|numeric",
+                "description"=>"nullable|string|max:200",
+                "expiry_date"=>"required|after:7 days",
+            ],
+        );
+
+        $coupon = new coupon();
+        $coupon->coupon_code = strtoupper($req->coupon_code);
+        $coupon->discount_amount = $req->discount_amount;
+        $coupon->description = $req->description;
+        $coupon->expiry_date = $req->expiry_date;
+
+        $coupon->visibility = $req->visibility == "" ? 'Disabled':'Active';
+        $coupon->save();
+
+        return redirect('admin/view-coupon')->with('msg', 'Coupon has been added successfully!');
+    }
+
+    public function viewCoupon(){
+        $coupons = DB::table('coupons')->simplePaginate(4);
+        return view("admin.coupon.view", compact('coupons'));
     }
 }

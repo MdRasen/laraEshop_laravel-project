@@ -43,6 +43,11 @@ Route::prefix('admin')->middleware('isAdmin')->group(function (){
     Route::post('/update-profilepic', [adminController::class,'updateProfilePic'])->name('admin.update-profilepic');
     Route::get('/edit-profile', [adminController::class,'editProfile'])->name('admin.edit-profile');
     Route::post('/edit-profile', [adminController::class,'editProfileSubmit'])->name('admin.edit-profile');
+
+    //Coupon
+    Route::get('/add-coupon', [adminController::class,'addCoupon'])->name('admin.add-coupon');
+    Route::post('/add-coupon', [adminController::class,'addCouponSubmit'])->name('admin.add-coupon');
+    Route::get('/view-coupon', [adminController::class,'viewCoupon'])->name('admin.view-coupon');
 });
 
 //Vendor Routes

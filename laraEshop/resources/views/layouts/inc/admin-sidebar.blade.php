@@ -7,12 +7,12 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+        <a class="nav-link" data-toggle="collapse" href="#category" aria-expanded="false" aria-controls="category">
           <i class="mdi mdi-book-multiple menu-icon"></i>
           <span class="menu-title">Categories</span>
           <i class="menu-arrow"></i>
         </a>
-        <div class="collapse" id="ui-basic">
+        <div class="collapse" id="category">
           <ul class="nav flex-column sub-menu">
             <li class="nav-item"> <a class="nav-link" href="{{route('admin.add-category')}}">Add Category</a></li>
             <li class="nav-item"> <a class="nav-link" href="{{route('admin.view-category')}}">View Category</a></li>
@@ -20,12 +20,12 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+        <a class="nav-link" data-toggle="collapse" href="#product" aria-expanded="false" aria-controls="product">
           <i class="mdi mdi-basket menu-icon"></i>
           <span class="menu-title">Products</span>
           <i class="menu-arrow"></i>
         </a>
-        <div class="collapse" id="ui-basic">
+        <div class="collapse" id="product">
           <ul class="nav flex-column sub-menu">
             <li class="nav-item"> <a class="nav-link" href="{{route('admin.add-product')}}">Add Product</a></li>
             <li class="nav-item"> <a class="nav-link" href="{{route('admin.view-product')}}">View Product</a></li>
@@ -33,22 +33,17 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="pages/forms/basic_elements.html">
-          <i class="mdi mdi-view-headline menu-icon"></i>
-          <span class="menu-title">Form elements</span>
+        <a class="nav-link" data-toggle="collapse" href="#coupon" aria-expanded="false" aria-controls="coupon">
+          <i class="mdi mdi-basket menu-icon"></i>
+          <span class="menu-title">Coupons</span>
+          <i class="menu-arrow"></i>
         </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="pages/charts/chartjs.html">
-          <i class="mdi mdi-chart-pie menu-icon"></i>
-          <span class="menu-title">Charts</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="pages/tables/basic-table.html">
-          <i class="mdi mdi-grid-large menu-icon"></i>
-          <span class="menu-title">Tables</span>
-        </a>
+        <div class="collapse" id="coupon">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="{{route('admin.add-coupon')}}">Add Coupon</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{{route('admin.view-coupon')}}">View Coupon</a></li>
+          </ul>
+        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="pages/icons/mdi.html">
@@ -71,12 +66,6 @@
             <li class="nav-item"> <a class="nav-link" href="pages/samples/lock-screen.html"> Lockscreen </a></li>
           </ul>
         </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="documentation/documentation.html">
-          <i class="mdi mdi-file-document-box-outline menu-icon"></i>
-          <span class="menu-title">Documentation</span>
-        </a>
       </li>
     </ul>
   </nav>
