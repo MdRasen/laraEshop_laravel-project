@@ -31,7 +31,7 @@
                         @csrf
                         <input type="file" name="profile_pic" class="form-control mt-3">
                         <p class="text-right" style="color:red;">@error('profile_pic')*{{$message}}@enderror</p>
-                        <button type="submit" class="btn btn-outline-primary btn-block mt-3">Update Profile Image</button>
+                        <button type="submit" class="btn btn-outline-primary btn-block" style="margin: 30px 0px 10px">Update Profile Image</button>
                     </form>
                 </div>
             </div>

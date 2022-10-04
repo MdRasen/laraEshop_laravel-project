@@ -317,10 +317,10 @@ class adminController extends Controller
     public function addCouponSubmit(Request $req){
         $this->validate($req,
             [
-                'coupon_code'=>"required|string|max:5|unique:coupons",
+                'coupon_code'=>"required|string|max:20|unique:coupons",
                 "discount_amount"=>"required|numeric",
                 "description"=>"nullable|string|max:200",
-                "expiry_date"=>"required|after:7 days",
+                "expiry_date"=>"required|after:3 days",
             ],
         );
 
@@ -339,5 +339,38 @@ class adminController extends Controller
     public function viewCoupon(){
         $coupons = DB::table('coupons')->simplePaginate(4);
         return view("admin.coupon.view", compact('coupons'));
+    }
+
+    public function editCoupon($coupon_id){
+        $coupon = coupon::where('id', '=', $coupon_id)->first();
+        return view("admin.coupon.edit", compact('coupon'));
+    }
+
+    public function editCouponSubmit($coupon_id, Request $req){
+        $this->validate($req,
+            [
+                'coupon_code'=>"required|string|max:20|unique:coupons,coupon_code,$coupon_id",
+                "discount_amount"=>"required|numeric",
+                "description"=>"nullable|string|max:200",
+                "expiry_date"=>"required|after:3 days",
+            ],
+        );
+
+        $coupon = coupon::where('id', '=', $coupon_id)->first();
+        $coupon->coupon_code = strtoupper($req->coupon_code);
+        $coupon->discount_amount = $req->discount_amount;
+        $coupon->description = $req->description;
+        $coupon->expiry_date = $req->expiry_date;
+
+        $coupon->visibility = $req->visibility == "" ? 'Disabled':'Active';
+        $coupon->update();
+
+        return redirect('admin/view-coupon')->with('msg', 'Coupon has been updated successfully!');
+    }
+
+    public function deleteCoupon(Request $req){
+        $coupon = coupon::where('id', '=', $req->coupon_id)->first();
+        $coupon->delete();
+        return redirect('admin/view-coupon')->with('msg', 'Coupon has been deleted successfully!');
     }
 }

@@ -40,7 +40,7 @@
     <div class="col-lg-8">
         <div class="card">
             <div class="card-body">
-              <h4 class="card-title">User Info Update</h4>
+              {{-- <h4 class="card-title">User Info Update</h4> --}}
               <form action="{{route('admin.edit-profile')}}" method="POST">
                 @csrf
                 <div class="row form-group">
@@ -109,7 +109,7 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary mr-2">Update</button>
-                <a href="{{route('admin.dashboard')}}" class="btn btn-light">Cancel</a>
+                <a href="{{route('admin.view-profile')}}" class="btn btn-light">Cancel</a>
               </form>
             </div>
           </div>        

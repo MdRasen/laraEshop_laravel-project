@@ -86,7 +86,7 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary mr-2">Update Product</button>
-                <a href="{{route('admin.dashboard')}}" class="btn btn-light">Cancel</a>
+                <a href="{{route('admin.view-product')}}" class="btn btn-light">Cancel</a>
             </form>
         </div>
     </div>

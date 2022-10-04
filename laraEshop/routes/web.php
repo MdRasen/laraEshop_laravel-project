@@ -48,6 +48,9 @@ Route::prefix('admin')->middleware('isAdmin')->group(function (){
     Route::get('/add-coupon', [adminController::class,'addCoupon'])->name('admin.add-coupon');
     Route::post('/add-coupon', [adminController::class,'addCouponSubmit'])->name('admin.add-coupon');
     Route::get('/view-coupon', [adminController::class,'viewCoupon'])->name('admin.view-coupon');
+    Route::get('/edit-coupon/{coupon_id}', [adminController::class,'editCoupon'])->name('admin.edit-coupon');
+    Route::post('/edit-coupon/{coupon_id}', [adminController::class,'editCouponSubmit'])->name('admin.edit-coupon');
+    Route::post('/delete-coupon', [adminController::class,'deleteCoupon'])->name('admin.delete-coupon');
 });
 
 //Vendor Routes

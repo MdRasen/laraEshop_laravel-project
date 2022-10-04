@@ -42,21 +42,21 @@
                             <td>{{$item->expiry_date}}</td>
                             <td>{{$item->visibility}}</td>
                             <td>
-                                <a href="{{route('admin.edit-category', ['category_id'=>$item->id])}}"
+                                <a href="{{route('admin.edit-coupon', ['coupon_id'=>$item->id])}}"
                                     class="nav-link btn btn-sm btn-inverse-primary">Edit</a>
                             </td>
                             <td>
                                 <button type="button" value="{{$item->id}}"
-                                    class="nav-link btn btn-sm btn-inverse-danger deleteCategoryBtn" data-toggle="modal"
-                                    data-target="#deleteCategoryBtn">Delete</button>
+                                    class="nav-link btn btn-sm btn-inverse-danger deleteCouponBtn" data-toggle="modal"
+                                    data-target="#deleteCouponBtn">Delete</button>
 
                                 <!-- Modal -->
-                                <div class="modal fade text-center" id="deleteCategoryBtn" tabindex="-1" role="dialog"
+                                <div class="modal fade text-center" id="deleteCouponBtn" tabindex="-1" role="dialog"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Delete Category</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">Delete Coupon</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
@@ -64,9 +64,9 @@
                                             </div>
                                             <div class="modal-body">
                                                 <h5>Are you sure you want to delete?</h5>
-                                                <form action="{{route('admin.delete-category')}}" method="POST">
+                                                <form action="{{route('admin.delete-coupon')}}" method="POST">
                                                     @csrf
-                                                    <input type="hidden" id="category_id" name="category_id"
+                                                    <input type="hidden" id="coupon_id" name="coupon_id"
                                                         class="form-control">
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
@@ -94,16 +94,16 @@
 
 @endsection
 
-{{-- @section('scripts')
+@section('scripts')
 <script>
     $(document).ready(function () {
-        $('.deleteCategoryBtn').click(function (e) {
+        $('.deleteCouponBtn').click(function (e) {
             e.preventDefault();
-            var category_id = $(this).val();
-            $('#category_id').val(category_id);
+            var coupon_id = $(this).val();
+            $('#coupon_id').val(coupon_id);
             $('#deleteModal').modal('show');
         });
     });
 
 </script>
-@endsection --}}
+@endsection
