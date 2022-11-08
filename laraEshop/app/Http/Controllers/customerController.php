@@ -60,7 +60,36 @@ class customerController extends Controller
             $cartitem->product_id = $product_id;
             $cartitem->quantity = 1;
             $cartitem->save();
-    
+
+            return Redirect()->back()->with('msg', 'Product has been added to your cart!');
+        }
+    }
+
+    public function addCartQuantity(Request $req){
+        $user_id = session()->get('id');
+
+        $cart = cart::where('id', '=', $user_id)->first();
+        if(!$cart){
+            $cart = new cart();
+            $cart->customer_id = $user_id;
+            $cart->save();
+        }
+
+        $cartitem = cart_item::where('cart_id', '=', $cart->id)->where('product_id', '=', $req->product_id)->first();
+
+        if($cartitem){
+            $cartitem->quantity = $cartitem->quantity + $req->quantity;
+            $cartitem->update();
+            return Redirect()->back()->with('msg', 'Cart product has been updated!');
+        }
+
+        else{
+            $cartitem = new cart_item();
+            $cartitem->cart_id = $cart->id;
+            $cartitem->product_id = $req->product_id;
+            $cartitem->quantity = $req->quantity;
+            $cartitem->save();
+
             return Redirect()->back()->with('msg', 'Product has been added to your cart!');
         }
     }

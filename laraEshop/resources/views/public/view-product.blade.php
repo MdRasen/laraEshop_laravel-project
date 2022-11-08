@@ -22,8 +22,16 @@
 <!-- Breadcrumb Section End -->
 
 <!-- Product Details Section Begin -->
-<section class="product-details spad">
+<section class="product-details spad" style="padding-top: 40px; padding-bottom: 40px;">
     <div class="container">
+            @if (session('msg'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Holy guacamole!</strong> {{session('msg')}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
         <div class="row">
             <div class="col-lg-6 col-md-6">
                 <div class="product__details__pic">
@@ -46,19 +54,24 @@
                     </div>
                     <div class="product__details__price">৳ {{$product->price}}</div>
                     <p>{{$product->meta_description? $product->meta_description:$product->description}}</p>
-                    <div class="product__details__quantity">
-                        <div class="quantity">
-                            <div class="pro-qty">
-                                <input type="text" value="1">
+
+                    <form action="{{route('customer.add-cart-quantity')}}" method="POST">
+                        @csrf
+                        <div class="product__details__quantity">
+                            <div class="quantity">
+                                <!-- <div class="pro-qty"> -->
+                                    <input type="hidden" value="{{$product->id}}" name="product_id">
+                                    <input class="pro-qty" type="number" value="1" name="quantity" style="border: none; width:80px;">
+                                <!-- </div> -->
                             </div>
                         </div>
-                    </div>
-                    <a href="#" class="primary-btn">ADD TO CARD</a>
-                    <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                        <input type="submit" class="primary-btn" style="border: none;" value="ADD TO CART">
+                        <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                    </form>
+
                     <ul>
                         <li><b>Availability</b> <span>In Stock</span></li>
                         <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
-                        <li><b>Weight</b> <span>0.5 kg</span></li>
                         <li><b>Share on</b>
                             <div class="share">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
@@ -71,7 +84,7 @@
                 </div>
             </div>
             <div class="col-lg-12">
-                <div class="product__details__tab">
+                <div class="product__details__tab" style="padding-top: 20px;">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
@@ -85,18 +98,20 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="tabs-1" role="tabpanel">
                             <div class="product__details__tab__desc">
-                                <h6>Product Description</h6>
                                 <p>{{$product->description}}</p>
                             </div>
                         </div>
                         <div class="tab-pane" id="tabs-3" role="tabpanel">
                             <div class="product__details__tab__desc">
-                                <h6>Product Reviews</h6>
+                                <span><b>MdRasen</b> | 9 days ago</span>
                                 <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
-                                    Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus.
-                                    Vivamus suscipit tortor eget felis porttitor volutpat. Vestibulum ac diam
-                                    sit amet quam vehicula elementum sed sit amet dui. Donec rutrum congue leo
-                                    eget malesuada.</p>
+                                    Pellentesque in ipsum id orci porta dapibus.</p>
+
+                                <hr>
+
+                                <span><b>SadiRah</b> | 12 days ago</span>
+                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur, animi provident ea et enim porro.</p>
+
                             </div>
                         </div>
                     </div>
