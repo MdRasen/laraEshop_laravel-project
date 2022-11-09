@@ -121,4 +121,24 @@ class customerController extends Controller
         $cartitem = cart_item::where('id', '=', $req->cart_item_id)->delete();
         return Redirect()->back()->with('msg', 'Cart product has been removed!');
     }
+
+    public function viewCheckout(){
+        $user_id = session()->get('id');
+        $customer = customer::where('id', '=', $user_id)->first();
+        $cart = cart::where('id', '=', $user_id)->first();
+
+        if($cart){
+            $cartitems = cart_item::where('cart_id', '=', $cart->id)->get();
+
+            $total_price = 0;
+            foreach ($cartitems as $item) {
+                $total_price = ($total_price + ($item->quantity * $item->product->price));
+            }
+            return view('customer.checkout', compact('cartitems', 'total_price', 'customer'));
+        }
+
+        else{
+            return Redirect()->back()->with('msg', 'No product in your cart!');
+        }
+    }
 }

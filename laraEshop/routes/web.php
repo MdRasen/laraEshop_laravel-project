@@ -67,6 +67,7 @@ Route::prefix('customer')->middleware('isCustomer')->group(function (){
     Route::get('/cart-increment/{cartitem_id}', [customerController::class,'cartIncrement'])->name('customer.cart-increment');
     Route::get('/cart-decrement/{cartitem_id}', [customerController::class,'cartDecrement'])->name('customer.cart-decrement');
     Route::post('/cart-remove-item', [customerController::class,'cartItemRemove'])->name('customer.cart-remove-item');
+    Route::get('/view-checkout', [customerController::class,'viewCheckout'])->name('customer.view-checkout');
 });
 
 //Public Routes
