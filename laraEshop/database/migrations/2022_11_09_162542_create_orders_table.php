@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('payment_method');
             $table->string('payment_status');
             $table->string('delivery_address');
-            $table->integer('coupon_id');
+            $table->integer('coupon_id')->nullable();
             $table->integer('total_payment');
             $table->timestamps();
         });

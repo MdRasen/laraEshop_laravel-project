@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\cart;
 use App\Models\cart_item;
 use App\Models\customer;
+use App\Models\order;
+use App\Models\order_item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class customerController extends Controller
 {
@@ -130,15 +133,67 @@ class customerController extends Controller
         if($cart){
             $cartitems = cart_item::where('cart_id', '=', $cart->id)->get();
 
-            $total_price = 0;
-            foreach ($cartitems as $item) {
-                $total_price = ($total_price + ($item->quantity * $item->product->price));
+            if(count($cartitems) != 0){
+                $total_price = 0;
+                foreach ($cartitems as $item) {
+                    $total_price = ($total_price + ($item->quantity * $item->product->price));
+                }
+                return view('customer.checkout', compact('cartitems', 'total_price', 'customer'));
             }
-            return view('customer.checkout', compact('cartitems', 'total_price', 'customer'));
+
+            else{
+                return Redirect()->back()->with('msg', 'No product in your cart!');
+            }
         }
 
         else{
             return Redirect()->back()->with('msg', 'No product in your cart!');
         }
+    }
+
+    public function viewCheckoutSubmit(Request $req){
+        $user_id = session()->get('id');
+
+        $this->validate($req,
+            [
+                'delivery_address'=>"required",
+            ],
+        );
+
+        if(isset($req->coupon_code)){
+            echo 'yes';
+        }
+        else{
+            $customer = customer::where('id', '=', $user_id)->first();
+            $cart = cart::where('id', '=', $user_id)->first();
+            $cartitems = cart_item::where('cart_id', '=', $cart->id)->get();
+
+            $total_price = 60;
+                foreach ($cartitems as $item) {
+                    $total_price = ($total_price + ($item->quantity * $item->product->price));
+                }
+
+            $order = new order();
+            $order->order_number = Str::random(10);
+            $order->customer_id =$customer->id;
+            $order->status="Pending";
+            $order->payment_method=$req->payment_method;
+            $order->payment_status="Unpaid";
+            $order->delivery_address=$req->delivery_address;
+            $order->total_payment=$total_price;
+            $order->save();
+            
+            foreach ($cartitems as $item) {
+                $order_item = new order_item();
+                $order_item->order_number = $order->order_number;
+                $order_item->product_id =$item->product_id;
+                $order_item->quantity =$item->quantity;
+                $order_item->save();
+            }
+            $cartitems = cart_item::where('cart_id', '=', $cart->id)->delete();
+
+            return redirect('customer/dashboard')->with('msg', 'Order has been placed!');
+        }
+
     }
 }

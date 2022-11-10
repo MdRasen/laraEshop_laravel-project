@@ -49,13 +49,14 @@
                 <hr>
 
                 <div class="col-12">
-                    <form class="">
+                    <form action="{{route('customer.view-checkout')}}" method="POST">
+                        @csrf
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label">Payment Method</label>
                                     <div class="col-sm-8">
-                                        <select class="form-control">
+                                        <select class="form-control" name="payment_method">
                                             <option>Cash On Delivery</option>
                                             <option>Bkash/Nagad</option>
                                         </select>
@@ -66,7 +67,8 @@
                                 <div class="form-group row">
                                     <label class="col-sm-3 col-form-label">Coupon</label>
                                     <div class="col-sm-9">
-                                        <input class="form-control" type="text" placeholder="Enter coupon code">
+                                        <input class="form-control" name="coupon_code" type="text" placeholder="Enter coupon code" value="{{old('coupon_code')}}">
+                                        <p class="text-right" style="color:red;">@error('coupon_code')*{{$message}}@enderror</p>
                                     </div>
                                 </div>
                             </div>
@@ -74,7 +76,8 @@
                         <div class="row p-2 pb-3">
                             <label class="col-form-label">Delivery Address</label>
                             <br>
-                            <textarea class="p-2 form-control" name="" id="" style="width: 100%; height:80px;" placeholder="Enter delivery address">{{$customer->address}}</textarea>
+                            <textarea class="p-2 form-control" name="delivery_address" style="width: 100%; height:80px;" placeholder="Enter delivery address" value="{{old('delivery_address')}}">{{$customer->address}}</textarea>
+                            <p class="text-right" style="color:red;">@error('delivery_address')*{{$message}}@enderror</p>
                         </div>
                         <div class="form-group row float-right">
                             <a href="{{route('customer.view-cart')}}" class="btn btn-light">GO BACK</a>
