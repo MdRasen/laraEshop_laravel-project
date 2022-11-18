@@ -25,19 +25,20 @@
                     <thead>
                         <tr>
                             <th>Coupon Code</th>
-                            <th>Discount (Tk)</th>
-                            <th style="width: 30%">Description</th>
+                            <th style="width: 10%">Discount</th>
+                            <th style="width: 20%">Description</th>
                             <th>Expiry Date</th>
                             <th>Visibility</th>
                             <th>Edit</th>
                             <th>Delete</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($coupons as $item)
                         <tr>
                             <td>{{$item->coupon_code}}</td>
-                            <td>{{$item->discount_amount}}</td>
+                            <td>৳ {{$item->discount_amount}}</td>
                             <td>{{$item->description}}</td>
                             <td>{{$item->expiry_date}}</td>
                             <td>{{$item->visibility}}</td>
@@ -78,6 +79,22 @@
                                         </div>
                                     </div>
                                 </div>
+                            </td>
+
+                            <td>
+                                <form action="{{route('admin.assign-coupon')}}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="coupon_id" value="{{$item->id}}">
+                                    <select class="form-control" name="coupon_assign">
+                                        <option>All</option>
+                                        <option>05 Orders</option>
+                                        <option>15 Orders</option>
+                                        <option>25 Orders</option>
+                                        <option>Recent Orders</option>
+                                        <option>Old Orders</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-primary" style="width: 100%;">Assign</button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
