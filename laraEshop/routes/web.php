@@ -70,6 +70,7 @@ Route::prefix('customer')->middleware('isCustomer')->group(function (){
     Route::post('/cart-remove-item', [customerController::class,'cartItemRemove'])->name('customer.cart-remove-item');
     Route::get('/view-checkout', [customerController::class,'viewCheckout'])->name('customer.view-checkout');
     Route::post('/view-checkout', [customerController::class,'viewCheckoutSubmit'])->name('customer.view-checkout');
+    Route::get('/view-coupons', [customerController::class,'viewCoupon'])->name('customer.view-coupon');
 });
 
 //Public Routes

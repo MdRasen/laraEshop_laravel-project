@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\cart;
 use App\Models\cart_item;
 use App\Models\customer;
+use App\Models\customer_coupon;
 use App\Models\order;
 use App\Models\order_item;
 use Illuminate\Http\Request;
@@ -194,6 +195,19 @@ class customerController extends Controller
 
             return redirect('customer/dashboard')->with('msg', 'Order has been placed!');
         }
+    }
 
+    public function viewCoupon()
+    {
+        $user_id = session()->get('id');
+        $customer_coupons = customer_coupon::where('customer_id', '=', $user_id)->get();
+
+        if($customer_coupons){
+            return view('customer.coupon', compact('customer_coupons'));
+        }
+
+        else{
+            return Redirect()->back()->with('msg', 'No coupon availabe!');
+        }
     }
 }
