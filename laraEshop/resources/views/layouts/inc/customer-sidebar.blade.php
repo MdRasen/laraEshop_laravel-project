@@ -13,7 +13,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="pages/forms/basic_elements.html">
+            <a class="nav-link" href="{{route('customer.view-order')}}">
                 <i class="mdi mdi-package menu-icon"></i>
                 <span class="menu-title">My Orders</span>
             </a>

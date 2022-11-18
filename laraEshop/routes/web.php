@@ -71,6 +71,8 @@ Route::prefix('customer')->middleware('isCustomer')->group(function (){
     Route::get('/view-checkout', [customerController::class,'viewCheckout'])->name('customer.view-checkout');
     Route::post('/view-checkout', [customerController::class,'viewCheckoutSubmit'])->name('customer.view-checkout');
     Route::get('/view-coupons', [customerController::class,'viewCoupon'])->name('customer.view-coupon');
+    Route::get('/view-orders', [customerController::class,'viewOrder'])->name('customer.view-order');
+    Route::get('/view-order-details/{order_number}', [customerController::class,'viewOrderDetails'])->name('customer.view-order-details');
 });
 
 //Public Routes

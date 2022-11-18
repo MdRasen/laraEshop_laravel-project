@@ -249,4 +249,38 @@ class customerController extends Controller
             return Redirect()->back()->with('msg', 'No coupon availabe!');
         }
     }
+
+    public function viewOrder(){
+        $user_id = session()->get('id');
+        $orders = order::where('customer_id', '=', $user_id)->orderBy('updated_at', 'DESC')->simplePaginate(3);
+
+        if ($orders) {
+            return view('customer.order', compact('orders'));
+        } else {
+            return Redirect()->back()->with('msg', 'No order availabe!');
+        }
+    }
+
+    public function viewOrderDetails($order_number){
+        $user_id = session()->get('id');
+        $order = order::where('order_number', '=', $order_number)->first();
+
+        if ($order) {
+            $order_items = order_item::where('order_number', '=', $order_number)->get();
+            $total_price = 0;
+                foreach ($order_items as $item) {
+                    $total_price = ($total_price + ($item->quantity * $item->product->price));
+                }
+            $coupon = coupon::where('id', '=', $order->coupon_id)->first();
+            if(!$coupon){
+                $coupon_discount = 0;
+            }
+            else{
+                $coupon_discount = $coupon->discount_amount;
+            }
+            return view('customer.orderdetails', compact('order', 'order_items', 'total_price', 'coupon_discount'));
+        } else {
+            return Redirect()->back()->with('msg', 'No order availabe!');
+        }
+    }
 }
