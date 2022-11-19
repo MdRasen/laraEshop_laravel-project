@@ -52,6 +52,10 @@ Route::prefix('admin')->middleware('isAdmin')->group(function (){
     Route::post('/edit-coupon/{coupon_id}', [adminController::class,'editCouponSubmit'])->name('admin.edit-coupon');
     Route::post('/delete-coupon', [adminController::class,'deleteCoupon'])->name('admin.delete-coupon');
     Route::post('/assign-coupon', [adminController::class,'assignCoupon'])->name('admin.assign-coupon');
+
+    //Order
+    Route::get('/view-order', [adminController::class,'viewOrder'])->name('admin.view-order');
+    Route::get('/view-order-details/{order_number}', [adminController::class,'viewOrderDetails'])->name('admin.view-order-details');
 });
 
 //Vendor Routes

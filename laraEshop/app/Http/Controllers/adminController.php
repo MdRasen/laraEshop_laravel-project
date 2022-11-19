@@ -9,6 +9,7 @@ use App\Models\customer;
 use App\Models\customer_coupon;
 use App\Models\product;
 use App\Models\order;
+use App\Models\order_item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
@@ -516,6 +517,47 @@ class adminController extends Controller
             }
 
             return redirect('admin/view-coupon')->with('msg', 'Coupon has been assigned to specified customers!');
+        }
+    }
+
+    public function viewOrder(Request $req){
+        if($req->date && $req->status == "All Orders"){
+            $orders = order::where('created_at', 'like', $req->date.'%')->simplePaginate(4);
+            return view("admin.order.view", compact('orders'));
+        }
+
+        elseif($req->date && $req->status != "All Orders"){
+            $orders = order::where('created_at', 'like', $req->date.'%')->where('status', '=', $req->status)
+            ->simplePaginate(4);
+            return view("admin.order.view", compact('orders'));
+        }
+
+        else{
+            $orders = order::orderBy('updated_at', 'DESC')->simplePaginate(4);
+            return view("admin.order.view", compact('orders'));
+        }
+
+    }
+
+    public function viewOrderDetails($order_number){
+        $order = order::where('order_number', '=', $order_number)->first();
+
+        if ($order) {
+            $order_items = order_item::where('order_number', '=', $order_number)->get();
+            $total_price = 0;
+                foreach ($order_items as $item) {
+                    $total_price = ($total_price + ($item->quantity * $item->product->price));
+                }
+            $coupon = coupon::where('id', '=', $order->coupon_id)->first();
+            if(!$coupon){
+                $coupon_discount = 0;
+            }
+            else{
+                $coupon_discount = $coupon->discount_amount;
+            }
+            return view('admin.order.orderdetails', compact('order', 'order_items', 'total_price', 'coupon_discount'));
+        } else {
+            return Redirect()->back()->with('msg', 'No order availabe!');
         }
     }
 }
