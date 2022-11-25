@@ -5,16 +5,6 @@
 <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-
-            @if (session('msg'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Holy guacamole!</strong> {{session('msg')}}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            @endif
-
             <h4 class="card-title">Orders</h4>
             <p class="card-description">
                 Orders for your store can be managed here.
@@ -49,9 +39,9 @@
                         <tr>
                             <th>Order ID</th>
                             <th>Order Number</th>
+                            <th>Payment Method</th>
+                            <th>Delivery Address</th>
                             <th>Status</th>
-                            <th>payment_method</th>
-                            <th>payment_status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -60,9 +50,9 @@
                         <tr>
                             <td>{{$item->id}}</td>
                             <td>{{$item->order_number}}</td>
-                            <td>{{$item->status}}</td>
                             <td>{{$item->payment_method}}</td>
-                            <td>{{$item->payment_status}}</td>
+                            <td>{{$item->delivery_address}}</td>
+                            <td>{{$item->status}}</td>
                             <td>
                                  <a href="{{route('admin.view-order-details', ['order_number'=>$item->order_number])}}"
                                     class="nav-link btn btn-sm btn-primary">View Details</a>

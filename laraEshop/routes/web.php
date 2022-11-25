@@ -56,6 +56,7 @@ Route::prefix('admin')->middleware('isAdmin')->group(function (){
     //Order
     Route::get('/view-order', [adminController::class,'viewOrder'])->name('admin.view-order');
     Route::get('/view-order-details/{order_number}', [adminController::class,'viewOrderDetails'])->name('admin.view-order-details');
+    Route::post('/update-order', [adminController::class,'updateOrder'])->name('admin.update-order');
 });
 
 //Vendor Routes

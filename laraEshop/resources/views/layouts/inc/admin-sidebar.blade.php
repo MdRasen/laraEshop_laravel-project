@@ -7,6 +7,18 @@
         </a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#order" aria-expanded="false" aria-controls="order">
+          <i class="mdi mdi-gift menu-icon"></i>
+          <span class="menu-title">Orders</span>
+          <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="order">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="{{route('admin.view-order')}}">View Orders</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#category" aria-expanded="false" aria-controls="category">
           <i class="mdi mdi-book-multiple menu-icon"></i>
           <span class="menu-title">Categories</span>
@@ -34,7 +46,7 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#coupon" aria-expanded="false" aria-controls="coupon">
-          <i class="mdi mdi-basket menu-icon"></i>
+          <i class="mdi mdi-cash-usd menu-icon"></i>
           <span class="menu-title">Coupons</span>
           <i class="menu-arrow"></i>
         </a>

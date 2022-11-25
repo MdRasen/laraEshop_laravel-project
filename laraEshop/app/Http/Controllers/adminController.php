@@ -541,7 +541,7 @@ class adminController extends Controller
 
     public function viewOrderDetails($order_number){
         $order = order::where('order_number', '=', $order_number)->first();
-
+        $customer = customer::where('id', '=', $order->customer_id)->first();
         if ($order) {
             $order_items = order_item::where('order_number', '=', $order_number)->get();
             $total_price = 0;
@@ -555,9 +555,17 @@ class adminController extends Controller
             else{
                 $coupon_discount = $coupon->discount_amount;
             }
-            return view('admin.order.orderdetails', compact('order', 'order_items', 'total_price', 'coupon_discount'));
+            return view('admin.order.orderdetails', compact('order', 'order_items', 'total_price', 'coupon_discount', 'customer'));
         } else {
             return Redirect()->back()->with('msg', 'No order availabe!');
         }
     }
+
+    public function updateOrder(Request $req){
+        $order = order::where('id', '=', $req->order_id)->first();
+        $order->status = $req->status;
+        $order->payment_status = $req->payment_status;
+        $order->update();
+
+        return Redirect()->back()->with('msg', 'Order status has been updated!');    }
 }

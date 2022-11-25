@@ -1,14 +1,33 @@
-@extends('layouts.customer')
+@extends('layouts.admin')
 @section('title', 'laraEshop - Order Details')
 @section('content')
 
 <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Order Details</h4>
-            <p class="card-description">
-                View order details here.
-            </p>
+            @if (session('msg'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Holy guacamole!</strong> {{session('msg')}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @endif
+
+            <div class="row">
+                <div class="col-6">
+                    <h4 class="card-title">Order Details</h4>
+                    <p class="card-description">
+                        View order details here.
+                    </p>
+                </div>
+                <div class="col-6">
+                    <div class="form-group float-right">
+                        <a href="{{route('admin.view-order')}}" class="btn btn-outline-primary my-1">GO BACK</a>
+                        <a href="#" class="btn btn-primary">GENERATE INVOICE</a>
+                    </div>
+                </div>
+            </div>
             <div class="table-responsive">
                 <table class="table table-hover table-bordered">
                     <thead>
@@ -73,10 +92,35 @@
                     </tbody>
                 </table>
                 <hr>
-                <div class="form-group float-right">
-                    <a href="{{route('customer.view-order')}}" class="btn btn-primary">GO BACK</a>
+            </div>
+
+            <div class="row">
+                <div class="col-4">
+                    Customer Name: <span style="color: blue;">{{$customer->username}}</span> <br>
+                    Phone/Email: <span style="color: blue;">{{$customer->phone ? $customer->phone:$customer->email}}</span> <br>
+                </div>
+                <div class="col-8">
+                    <div class="form-group float-right">
+                        <form action="{{route('admin.update-order')}}" method="POST" class="form-inline">
+                            @csrf
+                            <input type="hidden" name="order_id" value="{{$order->id}}">
+                            <label class="pt-2"><b>Select Status:</b></label>
+                            <select name="payment_status" class="form-control mx-1">
+                                <option value="Unpaid" {{$order->payment_status=="Unpaid" ? 'selected':''}}>Unpaid</option>
+                                <option value="Paid" {{$order->payment_status=="Paid" ? 'selected':''}}>Paid</option>
+                            </select>
+                            <select name="status" class="form-control mx-1">
+                                <option value="Pending" {{$order->status=="Pending" ? 'selected':''}}>Pending</option>
+                                <option value="In Progress" {{$order->status=="In Progress" ? 'selected':''}}>In Progress</option>
+                                <option value="Delivered" {{$order->status=="Delivered" ? 'selected':''}}>Delivered</option>
+                                <option value="Cancelled" {{$order->status=="Cancelled" ? 'selected':''}}>Cancelled</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </form>
+                    </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
