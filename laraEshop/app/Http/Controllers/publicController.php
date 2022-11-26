@@ -224,4 +224,25 @@ class publicController extends Controller
         $user->update();
         return redirect()->route('public.login')->with('msg', 'Password has been updated!');
     }
+
+    public function searchedProducts(Request $req)
+    {
+        $this->validate(
+            $req,
+            [
+                "keyword" => "required"
+            ],
+            [
+                'keyword.required' => 'Please enter any value!',
+            ]
+        );
+
+        $products = product::where('name', 'like', '%' . $req->keyword . '%')->get();
+
+        echo $products;
+        // $categories = category::where('visibility', '=', "Active")->get();
+        // $latest_products = product::where('visibility', '=', "Active")->orderBy('created_at', 'DESC')->get()->take(4);
+        // $toprated_products = product::where('visibility', '=', "Active")->orderBy('created_at', 'ASC')->get()->take(4);
+        // return view('public.searched-products', compact('products', 'categories', 'latest_products', 'toprated_products'));
+    }
 }

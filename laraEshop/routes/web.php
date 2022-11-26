@@ -95,4 +95,5 @@ Route::prefix('public')->group(function (){
     Route::post('/enter-otp', [publicController::class,'enterOTPSubmit'])->name('public.enter-otp');
     Route::get('/reset-pass', [publicController::class,'resetPass'])->name('public.reset-pass');
     Route::post('/reset-pass', [publicController::class,'resetPassSubmit'])->name('public.reset-pass');
+    Route::post('/searched-products', [publicController::class,'searchedProducts'])->name('public.searched-products');
 });

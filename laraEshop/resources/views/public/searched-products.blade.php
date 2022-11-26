@@ -11,7 +11,7 @@
                     <h2>Lara Eshop</h2>
                     <div class="breadcrumb__option">
                         <a href="{{route('index')}}">Home</a>
-                        <span>{{$category->name}}</span>
+                        <span>Here</span>
                     </div>
                 </div>
             </div>
@@ -37,44 +37,51 @@
                 </div>
             </div>
             <div class="col-lg-9 col-md-7">
-                <div class="product__discount">
+                <div class="filter__item" style="border-top: none; padding-top: 5px;">
                     <div class="row">
-
-                        <div class="product__discount__slider owl-carousel">
-
-                            <?php
-                            if (count($products) <= 0) {
-                            ?>
-
-                                <div class="col-lg-4">
-                                    <img src="{{asset('assets/public/img/No_Product_Found.png')}}" alt="">
-                                </div>
-
-                            <?php
-                            }
-                            ?>
-
-                            @foreach ($products as $item)
-                            <div class="col-lg-4">
-                                <div class="product__discount__item">
-                                    <div class="product__discount__item__pic set-bg" data-setbg="{{asset('storage/product_images')}}/{{$item->thumbnail}}">
-                                        <div class="product__discount__percent">-20%</div>
-                                        <ul class="product__item__pic__hover">
-                                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                            <li><a href="{{route('public.view-product', ['category_slug'=>$item->category->slug, 'product_slug'=>$item->slug])}}"><i class="fa fa-retweet"></i></a></li>
-                                            <li><a href="{{route('customer.add-cart', ['product_id'=>$item->id])}}"><i class="fa fa-shopping-cart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="product__discount__item__text">
-                                        <span>{{$item->category->name}}</span>
-                                        <h5><a href="{{route('public.view-product', ['category_slug'=>$item->category->slug, 'product_slug'=>$item->slug])}}">{{$item->name}}</a></h5>
-                                        <div class="product__item__price">৳ {{$item->price}}</div>
-                                    </div>
-                                </div>
+                        <div class="col-lg-4 col-md-5">
+                            <div class="filter__sort">
+                                <span>Sort By</span>
+                                <select>
+                                    <option value="0">Default</option>
+                                </select>
                             </div>
-                            @endforeach
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <div class="filter__found">
+                                <h6><span>{{count($products)}}</span> Products found</h6>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-3">
+                            <div class="filter__option">
+                                <span class="icon_grid-2x2"></span>
+                                <span class="icon_ul"></span>
+                            </div>
                         </div>
                     </div>
+                </div>
+                <div class="row">
+
+                    @foreach ($products as $item)
+
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="product__item">
+                            <div class="product__item__pic set-bg" data-setbg="{{asset('storage/product_images')}}/{{$item->thumbnail}}">
+                                <ul class="product__item__pic__hover">
+                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                    <li><a href="{{route('public.view-product', ['category_slug'=>$item->category->slug, 'product_slug'=>$item->slug])}}"><i class="fa fa-retweet"></i></a></li>
+                                    <li><a href="{{route('customer.add-cart', ['product_id'=>$item->id])}}"><i class="fa fa-shopping-cart"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="product__item__text">
+                                <h6><a href="{{route('public.view-product', ['category_slug'=>$item->category->slug, 'product_slug'=>$item->slug])}}">{{$item->name}}</a></h6>
+                                <h5>৳ {{$item->price}}</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    @endforeach
+
                 </div>
             </div>
         </div>

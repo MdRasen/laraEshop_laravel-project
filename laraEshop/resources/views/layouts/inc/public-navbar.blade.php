@@ -1,7 +1,7 @@
 <!-- Page Preloder -->
-{{-- <div id="preloder">
+<!-- <div id="preloder">
     <div class="loader"></div>
-</div> --}}
+</div> -->
 
 <!-- Humberger Begin -->
 <div class="humberger__menu__overlay"></div>
@@ -176,12 +176,14 @@
             <div class="col-lg-9">
                 <div class="hero__search">
                     <div class="hero__search__form">
-                        <form action="#">
+                        <form action="{{route('public.searched-products')}}" method="POST">
+                            @csrf
                             <div class="hero__search__categories">
                                 All Categories
                                 <span class="arrow_carrot-right"></span>
                             </div>
-                            <input type="text" placeholder="What do yo u need?">
+                            <input type="text" placeholder="What do yo u need?" name="keyword">
+                            <p class="text-right" style="color:red;">@error('keyword')*{{$message}}@enderror</p>
                             <button type="submit" class="site-btn">SEARCH</button>
                         </form>
                     </div>
