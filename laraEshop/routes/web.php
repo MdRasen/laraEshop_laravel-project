@@ -89,4 +89,10 @@ Route::prefix('public')->group(function (){
     Route::get('/logout', [publicController::class,'logout'])->name('public.logout');
     Route::get('/category/{category_slug}', [publicController::class,'categoryProducts'])->name('public.category-products');
     Route::get('/{category_slug}/{product_slug}', [publicController::class,'viewProduct'])->name('public.view-product');
+    Route::get('/forgot-pass', [publicController::class,'forgotPass'])->name('public.forgot-pass');
+    Route::post('/forgot-pass', [publicController::class,'forgotPassSubmit'])->name('public.forgot-pass');
+    Route::get('/enter-otp', [publicController::class,'enterOTP'])->name('public.enter-otp');
+    Route::post('/enter-otp', [publicController::class,'enterOTPSubmit'])->name('public.enter-otp');
+    Route::get('/reset-pass', [publicController::class,'resetPass'])->name('public.reset-pass');
+    Route::post('/reset-pass', [publicController::class,'resetPassSubmit'])->name('public.reset-pass');
 });

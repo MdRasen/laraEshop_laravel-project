@@ -51,7 +51,7 @@
                       Keep me signed in
                     </label>
                   </div>
-                  <a href="#" class="text-primary">Forgot password?</a>
+                  <a href="{{route('public.forgot-pass')}}" class="text-primary">Forgot password?</a>
                 </div>
                 <div class="mb-2">
                   <button type="button" class="btn btn-success btn-block">
