@@ -3,6 +3,22 @@
     <div class="loader"></div>
 </div> -->
 
+@php
+$user_id = session()->get('id');
+$total_item = 0;
+$total_price = 0;
+$cart = App\models\cart::where('id', '=', $user_id)->first();
+
+if ($cart) {
+$cartitems = App\models\cart_item::where('cart_id', '=', $cart->id)->get();
+$total_item = $total_item + count($cartitems) ;
+
+foreach ($cartitems as $item) {
+$total_price = ($total_price + ($item->quantity * $item->product->price));
+}
+}
+@endphp
+
 <!-- Humberger Begin -->
 <div class="humberger__menu__overlay"></div>
 <div class="humberger__menu__wrapper">
@@ -16,28 +32,37 @@
     <div class="humberger__menu__cart">
         <ul>
             <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+            <li><a href="{{$cart ? route('customer.view-cart'):"#"}}"><i class="fa fa-shopping-bag"></i> <span>{{$total_item}}</span></a></li>
         </ul>
-        <div class="header__cart__price">item: <span>$0.00</span></div>
+        <div class="header__cart__price">item: <span>৳ {{$total_price}}</span></div>
     </div>
     <div class="humberger__menu__widget">
         <div class="header__top__right__auth">
-            <a href={{route('public.login')}}"><i class="fa fa-user"></i> Login</a>
+            @if(session()->get('user_type') == "Admin")
+            <a href="{{route('admin.dashboard')}}"><i class="fa fa-user"></i>Welcome, <b>{{session()->get('username')}} </b></a>
+            @elseif(session()->get('user_type') == "Vendor")
+            <a href="#"><i class="fa fa-user"></i>Welcome, <b>{{session()->get('username')}} </b></a>
+            @elseif(session()->get('user_type') == "Customer")
+            <a href="{{route('customer.dashboard')}}"><i class="fa fa-user"></i>Welcome, <b>{{session()->get('username')}} </b></a>
+            @else
+            <a href="{{route('public.login')}}"><i class="fa fa-user"></i> Login</a>
+            @endif
         </div>
     </div>
     <nav class="humberger__menu__nav mobile-menu">
         <ul>
             <li class="active"><a href="{{route('index')}}">Home</a></li>
-            <li><a href="#">Shop</a></li>
-            <li><a href="#">Pages</a>
+            <li><a href="#">Offers</a></li>
+            <!-- <li><a href="#">Pages</a>
                 <ul class="header__menu__dropdown">
                     <li><a href="#">Shop Details</a></li>
                     <li><a href="#">Shoping Cart</a></li>
                     <li><a href="#">Check Out</a></li>
                     <li><a href="#">Blog Details</a></li>
                 </ul>
-            </li>
+            </li> -->
             <li><a href="./blog.html">Blog</a></li>
+            <li><a href="#">About Us</a></li>
             <li><a href="./contact.html">Contact</a></li>
         </ul>
     </nav>
@@ -81,25 +106,14 @@
 
                         <div class="header__top__right__auth">
                             @if(session()->get('user_type') == "Admin")
-                                <a href="{{route('admin.dashboard')}}"><i class="fa fa-user"></i>Welcome, <b>{{session()->get('username')}} </b></a>
+                            <a href="{{route('admin.dashboard')}}"><i class="fa fa-user"></i>Welcome, <b>{{session()->get('username')}} </b></a>
                             @elseif(session()->get('user_type') == "Vendor")
-                                <a href="#"><i class="fa fa-user"></i>Welcome, <b>{{session()->get('username')}} </b></a>
+                            <a href="#"><i class="fa fa-user"></i>Welcome, <b>{{session()->get('username')}} </b></a>
                             @elseif(session()->get('user_type') == "Customer")
                             <a href="{{route('customer.dashboard')}}"><i class="fa fa-user"></i>Welcome, <b>{{session()->get('username')}} </b></a>
                             @else
-                                <a href="{{route('public.login')}}"><i class="fa fa-user"></i> Login</a>
+                            <a href="{{route('public.login')}}"><i class="fa fa-user"></i> Login</a>
                             @endif
-
-                            {{-- @if(Auth::user() == true && Auth::user()->role_as == "1")
-                            <a href="{{route('admin.dashboard')}}" style="font-size: 18px"> Welcome! <span>{{Auth::user()->role_as == 1 ? 'Admin,' : 'User,'}}</span> <span>{{ Auth::user()->name }}</a>
-                        
-                            @elseif(Auth::user() == true && Auth::user()->role_as == "0")
-                                <a href="userdashboard" style="font-size: 18px"> Welcome! <span>{{Auth::user()->role_as == 0 ? 'User,' : 'Admin,'}}</span> <span>{{ Auth::user()->name }}</a>
-
-                            @elseif(Auth::user() == false)
-                                <a href="{{ route('login') }}"><span>Login</span></a>
-                                
-                            @endif --}}
                         </div>
                     </div>
                 </div>
@@ -120,16 +134,17 @@
                 <nav class="header__menu">
                     <ul>
                         <li><a href="{{route('index')}}">Home</a></li>
-                        <li><a href="./shop-grid.html">Shop</a></li>
-                        <li><a href="#">Pages</a>
+                        <li><a href="#">Offers</a></li>
+                        <!-- <li><a href="#">Pages</a>
                             <ul class="header__menu__dropdown">
                                 <li><a href="#">Shop Details</a></li>
                                 <li><a href="#">Shoping Cart</a></li>
                                 <li><a href="#">Check Out</a></li>
                                 <li><a href="#">Blog Details</a></li>
                             </ul>
-                        </li>
+                        </li> -->
                         <li><a href="#">Blog</a></li>
+                        <li><a href="#">About Us</a></li>
                         <li><a href="#">Contact</a></li>
                     </ul>
                 </nav>
@@ -138,9 +153,9 @@
                 <div class="header__cart">
                     <ul>
                         <li><a href="#"><i class="fa fa-heart"></i> <span>0</span></a></li>
-                        <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>0</span></a></li>
+                        <li><a href="{{$cart ? route('customer.view-cart'):"#"}}"><i class="fa fa-shopping-bag"></i> <span>{{$total_item}}</span></a></li>
                     </ul>
-                    <div class="header__cart__price">item: <span>$0.00</span></div>
+                    <div class="header__cart__price">item: <span>৳ {{$total_price}}</span></div>
                 </div>
             </div>
         </div>
@@ -165,9 +180,9 @@
                         @php
                         $categories = App\models\category::where('visibility', '=', "Active")->get();
                         @endphp
-      
+
                         @foreach ($categories as $item)
-                        <li><a href="{{route('public.category-products', ['category_slug'=>$item->slug])}}">{{$item->name}}</a></li>			  
+                        <li><a href="{{route('public.category-products', ['category_slug'=>$item->slug])}}">{{$item->name}}</a></li>
                         @endforeach
 
                     </ul>

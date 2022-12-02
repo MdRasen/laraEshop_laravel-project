@@ -237,12 +237,12 @@ class publicController extends Controller
             ]
         );
 
-        $products = product::where('name', 'like', '%' . $req->keyword . '%')->get();
+        $keyword = $req->keyword;
 
-        echo $products;
-        // $categories = category::where('visibility', '=', "Active")->get();
-        // $latest_products = product::where('visibility', '=', "Active")->orderBy('created_at', 'DESC')->get()->take(4);
-        // $toprated_products = product::where('visibility', '=', "Active")->orderBy('created_at', 'ASC')->get()->take(4);
-        // return view('public.searched-products', compact('products', 'categories', 'latest_products', 'toprated_products'));
+        $products = product::where('name', 'like', '%' . $keyword . '%')->get();
+        $categories = category::where('visibility', '=', "Active")->get();
+        $latest_products = product::where('visibility', '=', "Active")->orderBy('created_at', 'DESC')->get()->take(4);
+        $toprated_products = product::where('visibility', '=', "Active")->orderBy('created_at', 'ASC')->get()->take(4);
+        return view('public.searched-products', compact('products', 'categories', 'latest_products', 'toprated_products', 'keyword'));
     }
 }

@@ -26,6 +26,14 @@
             margin-bottom: 10px !important;
             font-size: 20px !important;
         }
+        .center{
+
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 40%;
+
+        }
     </style>
 
 </head>

@@ -40,20 +40,15 @@
                 <div class="product__discount">
                     <div class="row">
 
+                        <?php
+                        if (count($products) <= 0) {
+                        ?>
+                            <img src="{{asset('assets/public/img/No_Product_Found.png')}}" alt="" class="center">
+                        <?php
+                        }
+                        ?>
+
                         <div class="product__discount__slider owl-carousel">
-
-                            <?php
-                            if (count($products) <= 0) {
-                            ?>
-
-                                <div class="col-lg-4">
-                                    <img src="{{asset('assets/public/img/No_Product_Found.png')}}" alt="">
-                                </div>
-
-                            <?php
-                            }
-                            ?>
-
                             @foreach ($products as $item)
                             <div class="col-lg-4">
                                 <div class="product__discount__item">

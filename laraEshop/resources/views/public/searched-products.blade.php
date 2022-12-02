@@ -49,7 +49,7 @@
                         </div>
                         <div class="col-lg-4 col-md-4">
                             <div class="filter__found">
-                                <h6><span>{{count($products)}}</span> Products found</h6>
+                                <h6><span>{{count($products)}}</span> Products on <span>{{$keyword}}</span></h6>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-3">
@@ -61,6 +61,14 @@
                     </div>
                 </div>
                 <div class="row">
+
+                    <?php
+                    if (count($products) <= 0) {
+                    ?>
+                        <img src="{{asset('assets/public/img/No_Product_Found.png')}}" alt="" class="center">
+                    <?php
+                    }
+                    ?>
 
                     @foreach ($products as $item)
 
